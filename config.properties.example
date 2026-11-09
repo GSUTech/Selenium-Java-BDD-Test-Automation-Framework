@@ -1,0 +1,10 @@
+
+# Browser configuration
+browser=chrome
+
+# Application URL
+url=https://the-internet.herokuapp.com/login
+
+# Demo test credentials
+username=tomsmith
+password=SuperSecretPassword!
