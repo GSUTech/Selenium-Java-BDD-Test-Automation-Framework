@@ -16,19 +16,31 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Hooks {
 
+    private static final Logger logger =
+            LoggerFactory.getLogger(Hooks.class);
+
     @Before
-    public void setUp() {
+    public void setUp(Scenario scenario) {
+        logger.info("Starting scenario: {}", scenario.getName());
         Driver.getDriver();
+        logger.info("Browser initialized");
     }
 
     @After
-    public void tearDown(Scenario scenario) {
+    public void tearDown(Scenario scenario)
+    {
+        logger.info("Scenario finished: {} | Status: {}",
+                scenario.getName(), scenario.getStatus());
 
         try {
-            if (scenario.isFailed()) {
+            if (scenario.isFailed())
+            {
+                logger.error("Scenario failed: {}", scenario.getName());
 
                 WebDriver driver = Driver.getDriver();
 
@@ -68,13 +80,16 @@ public class Hooks {
                 );
             }
 
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             System.err.println(
                     "Failed to save screenshot: " + e.getMessage()
             );
 
-        } finally {
+        } finally
+        {
             Driver.closeDriver();
+            logger.info("Browser closed");
         }
     }
 }
