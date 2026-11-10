@@ -36,3 +36,17 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Local configuration
+/config.properties
+
+# Maven build output
+target/
+
+# Logs
+*.log
