@@ -8,9 +8,16 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.time.Duration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 
 public class LoginPage
 {
+
+    private static final Logger logger =
+            LoggerFactory.getLogger(LoginPage.class);
 
     private final WebDriver driver;
     private final WebDriverWait wait;
