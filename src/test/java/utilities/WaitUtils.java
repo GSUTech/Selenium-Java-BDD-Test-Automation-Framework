@@ -11,74 +11,68 @@ import org.slf4j.LoggerFactory;
 
 import java.time.Duration;
 
-public class WaitUtils {
+public class WaitUtils
+{
 
-    private static final Logger logger =
-            LoggerFactory.getLogger(WaitUtils.class);
+    private static final Logger logger = LoggerFactory.getLogger(WaitUtils.class);
 
-    private static final int DEFAULT_TIMEOUT = 10;
+    private static final int DEFAULT_TIMEOUT = Integer.parseInt(ConfigReader.getProperty("explicitWait"));
 
-    private WaitUtils() {
+    private WaitUtils()
+    {
         // Prevent creating objects of this utility class
     }
 
     // Wait until an element is visible
-    public static WebElement waitForVisibility(By locator) {
+    public static WebElement waitForVisibility(By locator)
+    {
 
         logger.info("Waiting for element visibility: {}", locator);
 
-        WebDriverWait wait = new WebDriverWait(
-                Driver.getDriver(),
-                Duration.ofSeconds(DEFAULT_TIMEOUT)
-        );
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(DEFAULT_TIMEOUT));
 
         try {
-            WebElement element = wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(locator)
-            );
+            WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
             logger.info("Element is visible: {}", locator);
             return element;
 
-        } catch (TimeoutException e) {
+        }
+        catch (TimeoutException e)
+        {
             logger.error("Timed out waiting for element visibility: {}", locator);
             throw e;
         }
     }
 
     // Wait until an element is clickable
-    public static WebElement waitForClickable(By locator) {
+    public static WebElement waitForClickable(By locator)
+    {
 
         logger.info("Waiting for element to be clickable: {}", locator);
 
-        WebDriverWait wait = new WebDriverWait(
-                Driver.getDriver(),
-                Duration.ofSeconds(DEFAULT_TIMEOUT)
-        );
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(DEFAULT_TIMEOUT));
 
         try {
-            WebElement element = wait.until(
-                    ExpectedConditions.elementToBeClickable(locator)
-            );
+            WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
 
             logger.info("Element is clickable: {}", locator);
             return element;
 
-        } catch (TimeoutException e) {
+        } catch (TimeoutException e)
+        {
             logger.error("Timed out waiting for clickable element: {}", locator);
             throw e;
         }
     }
 
     // Wait until the URL contains expected text
-    public static void waitForUrlContains(String expectedText) {
+    public static void waitForUrlContains(String expectedText)
+    {
 
         logger.info("Waiting for URL to contain: {}", expectedText);
 
-        WebDriverWait wait = new WebDriverWait(
-                Driver.getDriver(),
-                Duration.ofSeconds(DEFAULT_TIMEOUT)
-        );
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(DEFAULT_TIMEOUT));
 
         try {
             wait.until(
@@ -87,7 +81,8 @@ public class WaitUtils {
 
             logger.info("URL contains expected text: {}", expectedText);
 
-        } catch (TimeoutException e) {
+        } catch (TimeoutException e)
+        {
             logger.error("Timed out waiting for URL to contain: {}", expectedText);
             throw e;
         }
