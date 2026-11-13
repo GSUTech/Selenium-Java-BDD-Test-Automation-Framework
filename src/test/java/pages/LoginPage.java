@@ -10,6 +10,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.time.Duration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.openqa.selenium.By;
+import utilities.WaitUtils;
 
 
 
@@ -20,50 +22,44 @@ public class LoginPage
             LoggerFactory.getLogger(LoginPage.class);
 
     private final WebDriver driver;
-    private final WebDriverWait wait;
+
 
     // Locators
     private final By username = By.id("username");
     private final By password = By.id("password");
-    private final By loginButton =
-            By.cssSelector("button[type='submit']");
+    private final By loginButton = By.cssSelector("button[type='submit']");
     private final By message = By.id("flash");
 
-    // Constructor
     public LoginPage(WebDriver driver)
     {
         this.driver = driver;
-        this.wait = new WebDriverWait(
-                driver, Duration.ofSeconds(10));
     }
 
     // Enter username
     public void enterUsername(String user)
     {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(username)
-        );
-        element.sendKeys(user);
+        logger.info("Entering username");
+        WaitUtils.waitForVisibility(username).sendKeys(user);
     }
 
     // Enter password
     public void enterPassword(String pass)
     {
-        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(password)
-        );
-        element.sendKeys(pass);
+        logger.info("Entering password");
+        WaitUtils.waitForVisibility(password).sendKeys(pass);
     }
 
     // Click Login button
     public void clickLogin()
     {
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton)
-        ).click();
+        logger.info("Clicking Login button");
+        WaitUtils.waitForClickable(loginButton).click();
     }
 
     // Get success or error message
     public String getMessage()
     {
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(message)
-        ).getText();
+        logger.info("Reading login response message");
+        return WaitUtils.waitForVisibility(message).getText();
     }
 }
