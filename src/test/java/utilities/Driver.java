@@ -3,29 +3,51 @@ package utilities;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class Driver {
+public class Driver
+{
 
-    private static WebDriver driver;
+    private static final Logger logger =
+            LoggerFactory.getLogger(Driver.class);
 
-    public static WebDriver getDriver() {
+    private static final ThreadLocal<WebDriver> driverPool = new ThreadLocal<>();
 
-        if (driver == null) {
+    private Driver()
+    {
+        // Prevent creating Driver objects
+    }
 
-            String browser =
-                    ConfigReader.getProperty("browser");
+    public static WebDriver getDriver()
+    {
 
-            if (browser == null || browser.isBlank()) {
-                throw new IllegalArgumentException(
-                        "Browser is missing in config.properties"
-                );
+        if (driverPool.get() == null)
+        {
+
+            String browser = ConfigReader.getProperty("browser");
+
+            if (browser == null || browser.isBlank())
+            {
+                browser = "chrome";
             }
 
-            switch (browser.trim().toLowerCase()) {
+            browser = browser.trim().toLowerCase();
 
+            logger.info("Initializing browser: {}", browser);
+
+            WebDriver driver;
+
+            switch (browser)
+            {
                 case "chrome":
                     driver = new ChromeDriver();
+                    break;
+
+                case "edge":
+                    driver = new EdgeDriver();
                     break;
 
                 case "firefox":
@@ -39,16 +61,28 @@ public class Driver {
             }
 
             driver.manage().window().maximize();
+            driverPool.set(driver);
+
+            logger.info("Browser initialized successfully: {}", browser);
         }
 
-        return driver;
+        return driverPool.get();
     }
 
-    public static void closeDriver() {
+    public static void closeDriver()
+    {
 
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+        WebDriver driver = driverPool.get();
+
+        if (driver != null)
+        {
+            try {
+                logger.info("Closing browser");
+                driver.quit();
+            } finally
+            {
+                driverPool.remove();
+            }
         }
     }
 }
