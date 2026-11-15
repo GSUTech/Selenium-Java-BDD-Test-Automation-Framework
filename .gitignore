@@ -50,3 +50,8 @@ target/
 
 # Logs
 *.log
+
+# Local debugging output
+config-error.txt
+logback-debug.txt
+logback-debug-new.txt
