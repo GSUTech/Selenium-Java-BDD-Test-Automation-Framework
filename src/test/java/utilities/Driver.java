@@ -7,6 +7,9 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 public class Driver
 {
@@ -40,18 +43,48 @@ public class Driver
 
             WebDriver driver;
 
-            switch (browser)
-            {
+
+            boolean headless = Boolean.parseBoolean(
+                    ConfigReader.getProperty("headless")
+            );
+
+            logger.info("Headless mode enabled: {}", headless);
+
+            switch (browser) {
+
                 case "chrome":
-                    driver = new ChromeDriver();
+                    ChromeOptions chromeOptions = new ChromeOptions();
+
+                    if (headless)
+                    {
+                        chromeOptions.addArguments("--headless=new");
+                        chromeOptions.addArguments("--window-size=1920,1080");
+                    }
+
+                    driver = new ChromeDriver(chromeOptions);
                     break;
 
                 case "edge":
-                    driver = new EdgeDriver();
+                    EdgeOptions edgeOptions = new EdgeOptions();
+
+                    if (headless) {
+                        edgeOptions.addArguments("--headless=new");
+                        edgeOptions.addArguments("--window-size=1920,1080");
+                    }
+
+                    driver = new EdgeDriver(edgeOptions);
                     break;
 
                 case "firefox":
-                    driver = new FirefoxDriver();
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+
+                    if (headless) {
+                        firefoxOptions.addArguments("-headless");
+                        firefoxOptions.addArguments("--width=1920");
+                        firefoxOptions.addArguments("--height=1080");
+                    }
+
+                    driver = new FirefoxDriver(firefoxOptions);
                     break;
 
                 default:

@@ -10,3 +10,5 @@ username=tomsmith
 password=SuperSecretPassword!
 
 explicitWait=10
+
+headless=true
