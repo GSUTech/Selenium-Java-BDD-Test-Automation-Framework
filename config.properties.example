@@ -12,3 +12,4 @@ password=SuperSecretPassword!
 explicitWait=10
 
 headless=true
+environment=qa
