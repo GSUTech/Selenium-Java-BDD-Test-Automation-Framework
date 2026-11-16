@@ -32,8 +32,11 @@ Feature: Login Functionality
     And the user clicks the login button
     Then the login message should contain "<expectedMessage>"
 
+
     Examples:
       | username  | password             | expectedMessage                |
       | tomsmith  | SuperSecretPassword! | You logged into a secure area! |
       | wronguser | wrongpassword        | Your username is invalid!      |
       | tomsmith  | wrongpassword        | Your password is invalid!      |
+      | wronguser | SuperSecretPassword! | Your username is invalid!      |
+      | tomsmith  | incorrect123         | Your password is invalid!      |
