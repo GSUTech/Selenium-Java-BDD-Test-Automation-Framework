@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
+        <test.runner>TestRunner</test.runner>
         <maven.compiler.release>17</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
@@ -80,9 +81,15 @@
 
 
                 <configuration>
+
                     <includes>
-                        <include>**/TestRunner.java</include>
+                        <include>**/${test.runner}.java</include>
                     </includes>
+
+
+                    <parallel>methods</parallel>
+                    <threadCount>2</threadCount>
+                    <perCoreThreadCount>false</perCoreThreadCount>
                 </configuration>
 
             </plugin>

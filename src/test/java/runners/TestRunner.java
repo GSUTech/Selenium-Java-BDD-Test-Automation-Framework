@@ -11,14 +11,16 @@ import io.cucumber.junit.CucumberOptions;
         features = "src/test/resources/features",
 
         glue = "stepDef",
-        tags = "@regression",
+        tags = "${cucumber.filter.tags}",
 
 
         plugin = {
+
                 "pretty",
                 "html:target/cucumber-report.html",
                 "json:target/cucumber.json",
-                "junit:target/cucumber-results.xml"
+                "junit:target/cucumber-results.xml",
+                "rerun:target/rerun.txt"
         },
 
         monochrome = false,
