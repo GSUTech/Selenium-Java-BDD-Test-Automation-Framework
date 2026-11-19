@@ -1,7 +1,14 @@
 
 # Selenium Cucumber BDD Automation Framework
 
-A Java-based UI test automation framework using Selenium WebDriver, Cucumber BDD, Maven, and Jenkins.
+A personal UI test automation project built with Java, Selenium WebDriver, 
+Cucumber BDD, and Maven, with Jenkins CI/CD integration.
+
+# Project Overview
+
+This framework demonstrates automated testing of web application functionality using the Page Object Model (POM) design pattern and behavior-driven development (BDD).
+
+The current test application is the public demo login page at https://the-internet.herokuapp.com/login.
 
 ## Technology Stack
 
@@ -30,6 +37,17 @@ A Java-based UI test automation framework using Selenium WebDriver, Cucumber BDD
 - Screenshots on test failure
 - Cucumber HTML and JUnit reports
 - Jenkins parameterized builds
+- 
+# Project Structure
+
+src/test/java/
+pages/
+runners/
+stepDef/
+utilities/
+
+src/test/resources/
+features/
 
 ## Prerequisites
 
