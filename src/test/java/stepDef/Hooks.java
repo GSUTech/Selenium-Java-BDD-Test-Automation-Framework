@@ -19,13 +19,15 @@ import java.nio.file.Paths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class Hooks {
+public class Hooks
+{
 
     private static final Logger logger =
             LoggerFactory.getLogger(Hooks.class);
 
     @Before
-    public void setUp(Scenario scenario) {
+    public void setUp(Scenario scenario)
+    {
         logger.info("Starting scenario: {}", scenario.getName());
         Driver.getDriver();
         logger.info("Browser initialized");

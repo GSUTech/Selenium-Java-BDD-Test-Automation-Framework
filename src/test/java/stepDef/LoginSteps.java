@@ -47,12 +47,9 @@ public class LoginSteps
     }
 
     @Then("the user should see a success message")
-    public void verifySuccessMessage() {
-        Assert.assertTrue(
-                loginPage.getMessage().contains(
-                        "You logged into a secure area!"
-                )
-        );
+    public void verifySuccessMessage()
+    {
+        Assert.assertTrue(loginPage.getMessage().contains("You logged into a secure area!"));
     }
 
     @When("the user enters an invalid username")

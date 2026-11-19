@@ -16,7 +16,7 @@ Feature: Login Functionality
     And the user clicks the login button
     Then the user should see a success message
 
-  @regression @negative
+  @regression
   Scenario: Login with invalid credentials
     Given the user is on the login page
     When the user enters an invalid username
