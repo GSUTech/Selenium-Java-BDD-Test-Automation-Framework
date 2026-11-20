@@ -37,7 +37,7 @@ The current test application is the public demo login page at https://the-intern
 - Screenshots on test failure
 - Cucumber HTML and JUnit reports
 - Jenkins parameterized builds
-- 
+  
 # Project Structure
 
 src/test/java/
